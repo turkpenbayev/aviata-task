@@ -54,7 +54,7 @@ def results(request, search_id = None, currency = None, *args, **kwargs):
             kzt_q = float(currency_kzt['quant'])
             req_d = float(currency_req['description'])
             req_q = float(currency_req['quant'])
-            amount = total*(kzt_d*req_q)/(req_d*kzt_q)
+            amount = "{:.2f}".format(total*kzt_d*req_q/(req_d*kzt_q))
 
         item['price'] = {
             'amount': amount,
