@@ -24,7 +24,7 @@ def set_currency(date):
         response = session.get(
             url=f"https://www.nationalbank.kz/rss/get_rates.cfm?fdate={date.strftime('%d.%m.%Y')}", timeout=100)
     my_xml = xmltodict.parse(response.text)
-    currency_dict = {}
+    currency_dict = {'kzt': {'quant': 1, 'description': 1}}
     for item in my_xml['rates']['item']:
         currency_dict[str(item['title']).lower()] = {
             'quant': item['quant'],
