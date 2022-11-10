@@ -1,0 +1,4 @@
+*.pyc
+venv/
+currency.xml
+test.py

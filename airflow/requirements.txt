@@ -1,0 +1,7 @@
+Django==3.1
+django-filter
+djangorestframework
+drf-yasg
+gunicorn==20.0.4
+redis
+celery
