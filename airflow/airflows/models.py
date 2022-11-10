@@ -20,7 +20,7 @@ class Search(models.Model):
 
 
 class Currency(models.Model):
-    date = models.DateField()
+    date = models.DateField(unique=True)
     currencies = models.TextField()
 
     @property
