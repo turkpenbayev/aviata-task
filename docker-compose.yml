@@ -8,7 +8,7 @@ services:
     environment:
       - SERVICE_HOST=0.0.0.0
       - SERVICE_PORT=8001
-      - SLEEP_TIME=1
+      - SLEEP_TIME=30
       - SOURCE_FILE=./response_a.json
     ports:
       - 8001:8001
@@ -22,7 +22,7 @@ services:
     environment:
       - SERVICE_HOST=0.0.0.0
       - SERVICE_PORT=8002
-      - SLEEP_TIME=20
+      - SLEEP_TIME=60
       - SOURCE_FILE=./response_b.json
     ports:
       - 8002:8002
@@ -33,5 +33,40 @@ services:
     image: redis:5.0.5
     ports:
       - 6379:6379
+
+  airflow:
+    build:
+      context: .
+      dockerfile: ./docker/airflow/Dockerfile
+    ports:
+      - "9000:8000"
+    volumes:
+      - ./airflow/:/code
+    depends_on:
+      - redis
+      - provider_a
+      - provider_b
+
+  worker:
+    build:
+      context: .
+      dockerfile: ./docker/worker/Dockerfile
+    volumes:
+      - ./airflow/:/code
+    depends_on:
+      - redis
+      - provider_a
+      - provider_b
+
+  beat:
+    build:
+      context: .
+      dockerfile: ./docker/beat/Dockerfile
+    volumes:
+      - ./airflow/:/code
+    depends_on:
+      - redis
+      - provider_a
+      - provider_b
 
   

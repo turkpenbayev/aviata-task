@@ -7,14 +7,20 @@ ENV PYTHONUNBUFFERED 1
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./provider/requirements.txt .
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get -y install --no-install-recommends git libpq-dev build-essential openssl libssl-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY ./airflow/requirements.txt .
 RUN pip install -r requirements.txt
 
 # copy project
-COPY ./provider/ /code/
+COPY ./airflow/ /code/
 WORKDIR /code
 
-ADD ./docker/provider/entrypoint.sh /docker-entrypoint.sh
+ADD ./docker/beat/entrypoint.sh /docker-entrypoint.sh
 RUN chmod 755 /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 

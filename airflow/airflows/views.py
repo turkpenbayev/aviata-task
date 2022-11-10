@@ -12,7 +12,7 @@ from .serializers import ResultSerializer
 from .services import get_currencies
 
 
-provider_urls = ['http://127.0.0.1:8001/search', 'http://127.0.0.1:8002/search']
+provider_urls = ['http://provider_a:8001/search', 'http://provider_b:8002/search']
 
 
 @api_view(['GET'])
