@@ -125,6 +125,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_BEAT_SCHEDULE = {
     'download_currencies': {
         'task': 'airflows.tasks.download_currencies',
-        'schedule': crontab(hour=10, minute=21)
+        'schedule': crontab(hour=12, minute=0)
     }
 }
